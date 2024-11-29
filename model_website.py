@@ -3,7 +3,7 @@ import sys
 import json
 import pandas as pd
 import warnings
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 import random
 from sklearn.ensemble import GradientBoostingClassifier
 
@@ -13,15 +13,15 @@ columns_to_scale = ['PREVAILING_WAGE_1', 'COLI']  # Replace with your column nam
 # Suppress all warnings
 warnings.filterwarnings("ignore")
 
+onehotencoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+scaler = MinMaxScaler()
+
+
 # Load the trained model
 def prediction(df):
     with open('ml_model.pkl', 'rb') as file:
         model = pickle.load(file)
-
-    # Load the saved OneHotEncoder used during training
-    with open('onehotencoder.pkl', 'rb') as encoder_file:
-        onehotencoder = pickle.load(encoder_file)
-    
+   
     # Ensure numeric columns are treated as numeric
     df[columns_to_scale] = df[columns_to_scale].apply(pd.to_numeric, errors='coerce')
 
@@ -30,6 +30,7 @@ def prediction(df):
     
     # Identify categorical columns
     categorical_columns = X_normal.select_dtypes(include=['object']).columns
+    onehotencoder.fit(X_normal[categorical_columns])
 
     # Apply the OneHotEncoder to the categorical columns
     X_categorical_encoded = onehotencoder.transform(X_normal[categorical_columns])
@@ -48,9 +49,8 @@ def prediction(df):
     X_normal.columns = original_feature_names
 
     # # Scale the numeric features using the saved scaler
-    # with open('scaler.pkl', 'rb') as scaler_file:
-    #     scaler = pickle.load(scaler_file)
-    # X_normal[columns_to_scale] = scaler.transform(X_normal[columns_to_scale])
+    
+    scaler.fit(X_normal[columns_to_scale])
 
     # Predict using the trained model
     res = model.predict(X_normal)
@@ -80,6 +80,6 @@ if __name__ == "__main__":
         result = "Denied"
     
     # Output the result as a JSON string
-    print("random: ", random.randint(1, 100))
+    # print("random: ", random.randint(1, 100))
     print(json.dumps(result))  # Send back a simple JSON response
     sys.stdout.flush()
