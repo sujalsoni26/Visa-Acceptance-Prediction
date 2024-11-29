@@ -15,7 +15,7 @@ app.post("/predict", async (req, res) => {
     console.log('Received data:', data);
     
     // Spawn the Python process and pass the input data via stdin
-    const python = spawn('python3', ['model.py']);
+    const python = spawn('python3', ['model_website.py']);
     
     python.stdin.write(JSON.stringify(data)); // Write JSON data to stdin
     python.stdin.end();  // Close stdin
