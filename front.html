@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-1B Case Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>H-1B Case Prediction</h1>
+        <form method="POST" action="/predict">
+            <!-- Numerical Inputs -->
+            <label for="visa_class">VISA CLASS:</label>
+            <select id="visa_class" name="VISA_CLASS">
+                <option value="H-1B">H-1B</option>
+                <option value="H-1B1">H-1B1</option>
+                <option value="E-3">E-3</option>
+                <option value="other">other</option>
+            </select>
+
+            <label for="new_employment">NEW EMPLOYMENT:</label>
+            <select id="new_employment" name="NEW_EMPLOYMENT">
+                <option value="">-- Select an option --</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="continued_employment">CONTINUED EMPLOYMENT:</label>
+            <select id="continued_employment" name="CONTINUED_EMPLOYMENT">
+                <option value="">-- Select an option --</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="change_previous_employment">CHANGE PREVIOUS EMPLOYMENT:</label>
+            <select id="change_previous_employment" name="CHANGE_PREVIOUS_EMPLOYMENT">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="new_concurrent_employment">NEW CONCURRENT EMPLOYMENT:</label>
+            <select id="new_concurrent_employment" name="NEW_CONCURRENT_EMPLOYMENT">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="change_employer">CHANGE EMPLOYER:</label>
+            <select id="change_employer" name="CHANGE_EMPLOYER">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="amended_petition">AMENDED PETITION:</label>
+            <select id="amended_petition" name="AMENDED_PETITION">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+
+            <label for="employer_name">Employer Name:</label>
+            <textarea id="employer_name" name="EMPLOYER_NAME"></textarea>
+
+            <label for="soc_code">SOC CODE:</label>
+            <input type="text" id="soc_code" name="SOC_CODE">
+
+            <label for="job_title">Job Title:</label>
+            <textarea id="job_title" name="JOB_TITLE"></textarea>
+            <!-- Binary Inputs -->
+            <label for="agent_representing_employer">AGENT REPRESENTING EMPLOYER (0/1):</label>
+            <select id="agent_representing_employer" name="AGENT_REPRESENTING_EMPLOYER">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="willful_violator">WILLFUL VIOLATOR (0/1):</label>
+            <select id="willful_violator" name="WILLFUL_VIOLATOR">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="h1b_dependent">H-1B DEPENDENT (0/1):</label>
+            <select id="h1b_dependent" name="H-1B_DEPENDENT">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="total_worker_positions">TOTAL WORKER POSITIONS (Float):</label>
+            <input type="number" step="any" id="total_worker_positions" name="TOTAL_WORKER_POSITIONS">
+
+            <label for="full_time_position">FULL TIME POSITION (0/1):</label>
+            <select id="full_time_position" name="FULL_TIME_POSITION">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="prevailing_wage_1">PREVAILING WAGE (Float):</label>
+            <input type="number" step="any" id="prevailing_wage_1" name="PREVAILING_WAGE_1">
+
+            <label for="worksite">Worksite:</label>
+            <textarea id="worksite" name="WORKSITE"></textarea>
+
+            <label for="lat">Latitude:</label>
+            <input type="number" step="any" id="lat" name="lat">
+
+            <label for="lng">Longitude:</label>
+            <input type="number" step="any" id="lng" name="lng">
+
+            <!-- Dropdowns or Text Inputs for Categorical Data -->
+
+
+
+            <label for="coli">Cost of Living Index (COLI):</label>
+            <input type="text" id="coli" name="COLI">
+
+
+
+            <button type="submit">Predict</button>
+        </form>
+
+
+
+</body></html>

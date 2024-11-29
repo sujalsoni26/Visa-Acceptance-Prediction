@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "danfojs-node": "^0.1.4",
+    "express": "^4.21.1",
+    "jsdom": "^25.0.1",
+    "nodemon": "^3.1.7"
+  }
+}
